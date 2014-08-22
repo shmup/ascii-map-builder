@@ -7,4 +7,4 @@ TODO:
  * optimize shitty slow grid algorithm
  * generate full 256 colors
  * multi-block brush
- * press key to change character on the fly
+ * p̶r̶e̶s̶s̶ ̶k̶e̶y̶ ̶t̶o̶ ̶c̶h̶a̶n̶g̶e̶ ̶c̶h̶a̶r̶a̶c̶t̶e̶r̶ ̶o̶n̶ ̶t̶h̶e̶ ̶f̶l̶y
