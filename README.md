@@ -6,3 +6,5 @@ TODO:
  * hide palette 
  * optimize shitty slow grid algorithm
  * generate full 256 colors
+ * multi-block brush
+ * press key to change character on the fly
