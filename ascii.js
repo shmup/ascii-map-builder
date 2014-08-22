@@ -81,6 +81,9 @@
       }
       cell = $(cell);
       text = $("#character").val();
+      if (text === " ") {
+        text = "";
+      }
       return cell.text(text).css("color", document.color);
     };
 

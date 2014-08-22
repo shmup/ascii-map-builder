@@ -50,6 +50,7 @@ class window.AsciiMap
   color: (cell, color="", character="") ->
     cell = $(cell)
     text = $("#character").val()
+    text = "" if text == " "
     # cell.css("background", document.color)
     cell.text(text).css("color", document.color)
   colorwheel: () ->
