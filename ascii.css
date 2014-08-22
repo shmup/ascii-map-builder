@@ -40,6 +40,12 @@ html, body {
   padding: 10px;
 }
 
+#character {
+    width: 15px;
+    text-align: center;
+    background: #E6E6E6;
+}
+
 #colors button {
   width: 30px;
   height: 10px;
