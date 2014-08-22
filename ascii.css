@@ -1,3 +1,12 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  overflow: hidden;
+  font-family: Monospace;
+  font-weight: bold;
+}
+
 .cell {
     cursor: pointer;
     text-align: center;
@@ -5,14 +14,6 @@
     width: 14px;
     height: 14px;
     line-height: 14px;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  background: #000;
-  overflow: hidden;
-  font-family: Monospace;
 }
 
 .grid div {
