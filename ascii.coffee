@@ -5,6 +5,7 @@ $ ->
 class window.AsciiMap
   constructor: () ->
     @grid()
+    @bindings()
     @click()
     @colorwheel()
   grid: (size=15) ->
@@ -31,6 +32,9 @@ class window.AsciiMap
         rw++
       rh++
     return
+  bindings: () ->
+    $(document).keypress (e) ->
+      $("#character").val String.fromCharCode(e.which)
   click: () ->
     # ignore dragging event
     $("body").on("dragstart", ".cell", (event) -> event.preventDefault())

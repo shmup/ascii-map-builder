@@ -9,6 +9,7 @@
   window.AsciiMap = (function() {
     function AsciiMap() {
       this.grid();
+      this.bindings();
       this.click();
       this.colorwheel();
     }
@@ -40,6 +41,12 @@
         }
         rh++;
       }
+    };
+
+    AsciiMap.prototype.bindings = function() {
+      return $(document).keypress(function(e) {
+        return $("#character").val(String.fromCharCode(e.which));
+      });
     };
 
     AsciiMap.prototype.click = function() {
