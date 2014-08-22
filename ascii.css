@@ -6,6 +6,7 @@ html, body {
   margin: 0;
   padding: 0;
   background: #000;
+  overflow: hidden;
 }
 
 .grid div {
@@ -41,6 +42,9 @@ html, body {
 }
 
 #character {
+    position: absolute;
+    top: 10px;
+    left: 10px;
     width: 15px;
     text-align: center;
     background: #E6E6E6;
