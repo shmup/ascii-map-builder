@@ -1,0 +1,45 @@
+.cell {
+  cursor: pointer;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.grid div {
+  border: 1px solid #ccc;
+  border-width: 0 1px 1px 0;
+  float: left;
+}
+
+#legend {
+  display: none;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  width: 30px;
+  background: #ccc;
+}
+
+#hamburger {
+  width: 100%;
+  height: 24px;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAcUlEQVRIS2NkoDFgpLH5DMPHApBPwoHYgEpBdh5oziog/g8LoiggZymVDIcZEwlkrIBZEA3kLKGyBSBHL4dZAAsieSpZ8gA9iKhkLqYxdEumo6kIWxyOpiLiUjZ6Rhsti5DDbTQVkZaKiFNNhiqal6YAkEYeGYTeZWgAAAAASUVORK5CYII=');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#colors {
+  width: 400px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+}
+
+#colors button {
+  width: 30px;
+  height: 10px;
+}
