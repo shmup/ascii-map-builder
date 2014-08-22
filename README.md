@@ -1,5 +1,7 @@
 A tool for a mud I'm working on that will eventually allow for easy creation of ascii maps.
 
+demo: http://jsbin.com/cameg/1/
+
 TODO:
  * bind a color/character to both right and left mouse button
  * save and load
