@@ -32,8 +32,11 @@ class window.AsciiMap
       rh++
     return
   click: () ->
+    # ignore dragging event
     $("body").on("dragstart", ".cell", (event) -> event.preventDefault())
+    # bind to a single click
     $("body").on("click", ".cell", (thing) => @color $(thing.currentTarget))
+    # bind to movement
     $(document).mousemove (e) =>
       x = e.clientX
       y = e.clientY
@@ -42,7 +45,9 @@ class window.AsciiMap
         @color elem
   color: (cell, color="", character="") ->
     cell = $(cell)
-    cell.css("background", document.color)
+    text = $("#character").val()
+    # cell.css("background", document.color)
+    cell.text(text).css("color", document.color)
   colorwheel: () ->
     # https://www.gidforums.com/t-21296.html
     # https://gist.github.com/MicahElliott/719710
@@ -50,19 +55,14 @@ class window.AsciiMap
     colors = []
     i = 0
     while i < 6
-      console.log "i is #{i}"
       j = 0
       while j < 6
-        console.log "j is #{j}"
         k = 0
         while k < 6
-          console.log "k is #{k}"
           colors.push basic[i]+basic[j]+basic[k]
           k++
         j++
       i++
-
-    console.log colors.length
 
     for color in colors
       thing = $("<button />", {

@@ -65,6 +65,7 @@
     };
 
     AsciiMap.prototype.color = function(cell, color, character) {
+      var text;
       if (color == null) {
         color = "";
       }
@@ -72,7 +73,8 @@
         character = "";
       }
       cell = $(cell);
-      return cell.css("background", document.color);
+      text = $("#character").val();
+      return cell.text(text).css("color", document.color);
     };
 
     AsciiMap.prototype.colorwheel = function() {
@@ -81,13 +83,10 @@
       colors = [];
       i = 0;
       while (i < 6) {
-        console.log("i is " + i);
         j = 0;
         while (j < 6) {
-          console.log("j is " + j);
           k = 0;
           while (k < 6) {
-            console.log("k is " + k);
             colors.push(basic[i] + basic[j] + basic[k]);
             k++;
           }
@@ -95,7 +94,6 @@
         }
         i++;
       }
-      console.log(colors.length);
       for (_i = 0, _len = colors.length; _i < _len; _i++) {
         color = colors[_i];
         thing = $("<button />", {}).css("background", "#" + color).appendTo("#colors");
