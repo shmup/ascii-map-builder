@@ -10,7 +10,6 @@
     function AsciiMap() {
       this.grid();
       this.bindings();
-      this.click();
       this.colorwheel();
     }
 
@@ -20,8 +19,8 @@
         size = 15;
       }
       w = $(window);
-      ratio_width = Math.floor(w.width() / size);
-      ratio_height = Math.floor(w.height() / size);
+      ratio_width = 100;
+      ratio_height = 100;
       p = $("<div />", {
         "class": "grid",
         width: ratio_width * size,
@@ -44,21 +43,31 @@
     };
 
     AsciiMap.prototype.bindings = function() {
-      return $(document).keypress(function(e) {
+      $(document).keypress(function(e) {
         return $("#character").val(String.fromCharCode(e.which));
       });
-    };
-
-    AsciiMap.prototype.click = function() {
       $("body").on("dragstart", ".cell", function(event) {
         return event.preventDefault();
       });
+      $("#clear").click(function() {
+        return $(".cell").html("");
+      });
+      $("#save").click((function(_this) {
+        return function() {
+          return _this.save();
+        };
+      })(this));
+      $("#load").click((function(_this) {
+        return function() {
+          return _this.load();
+        };
+      })(this));
       $("body").on("click", ".cell", (function(_this) {
         return function(thing) {
           return _this.color($(thing.currentTarget));
         };
       })(this));
-      return $(document).mousemove((function(_this) {
+      $(document).mousemove((function(_this) {
         return function(e) {
           var elem, x, y;
           x = e.clientX;
@@ -69,6 +78,10 @@
           }
         };
       })(this));
+      return $("body").on("click", "#colors button", function() {
+        document.color = $(this).css("background-color");
+        return $("#left_color").css("background-color", document.color);
+      });
     };
 
     AsciiMap.prototype.color = function(cell, color, character) {
@@ -88,7 +101,7 @@
     };
 
     AsciiMap.prototype.colorwheel = function() {
-      var basic, color, colors, i, j, k, thing, _i, _len;
+      var basic, color, colors, i, j, k, thing, _i, _len, _results;
       basic = ["00", "CC", "33", "66", "99", "FF"];
       colors = [];
       i = 0;
@@ -104,16 +117,66 @@
         }
         i++;
       }
+      _results = [];
       for (_i = 0, _len = colors.length; _i < _len; _i++) {
         color = colors[_i];
-        thing = $("<button />", {}).css("background", "#" + color).appendTo("#colors");
+        _results.push(thing = $("<button />", {}).css("background", "#" + color).appendTo("#colors"));
       }
-      return $("body").on("click", "#colors button", function() {
-        return document.color = $(this).css("background-color");
+      return _results;
+    };
+
+    AsciiMap.prototype.save = function() {
+      var map, map_data;
+      map_data = [];
+      $(".cell").each(function() {
+        var cell, text;
+        cell = $(this);
+        text = cell.text();
+        if (text !== "") {
+          return map_data.push([cell.data("index"), window.Helper.rgb2hex(cell.css("color")), text]);
+        }
       });
+      return map = localStorage.setItem("map", JSON.stringify(map_data));
+    };
+
+    AsciiMap.prototype.load = function() {
+      var alerted, cell, grid_cell, grid_cells, map, _i, _len, _results;
+      map = JSON.parse(localStorage.getItem("map"));
+      grid_cells = $(".cell");
+      alerted = false;
+      _results = [];
+      for (_i = 0, _len = map.length; _i < _len; _i++) {
+        cell = map[_i];
+        grid_cell = grid_cells.filter(function() {
+          return $(this).data("index") === cell[0];
+        });
+        if (grid_cell.length === 0 && !alerted) {
+          alerted = true;
+          alert("It looks like the grid is smaller than the saved map! We'll load it anyway, but you can't see it all");
+        }
+        grid_cell.css("color", cell[1]);
+        _results.push(grid_cell.text(cell[2]));
+      }
+      return _results;
     };
 
     return AsciiMap;
+
+  })();
+
+  window.Helper = (function() {
+    function Helper() {}
+
+    Helper.rgb2hex = function(rgb) {
+      var hex;
+      rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+      hex = function(x) {
+        return ("0" + parseInt(x).toString(16)).slice(-2);
+      };
+      return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+    };
+
+    return Helper;
 
   })();
 

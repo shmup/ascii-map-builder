@@ -4,7 +4,7 @@ demo: http://jsbin.com/cameg/1/
 
 TODO:
  * bind a color/character to both right and left mouse button
- * save and load
+ * s̶a̶v̶e̶ ̶a̶n̶d̶ ̶l̶o̶a̶d̶
  * hide palette 
  * optimize shitty slow grid algorithm
  * generate full 256 colors

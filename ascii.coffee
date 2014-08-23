@@ -6,12 +6,14 @@ class window.AsciiMap
   constructor: () ->
     @grid()
     @bindings()
-    @click()
     @colorwheel()
   grid: (size=15) ->
     w = $(window)
-    ratio_width = Math.floor w.width()/size
-    ratio_height = Math.floor w.height()/size
+    # ratio_width = Math.floor w.width()/size
+    # ratio_height = Math.floor w.height()/size
+
+    ratio_width = 100
+    ratio_height = 100
 
     p = $("<div />",{
       class: "grid"
@@ -35,18 +37,27 @@ class window.AsciiMap
   bindings: () ->
     $(document).keypress (e) ->
       $("#character").val String.fromCharCode(e.which)
-  click: () ->
-    # ignore dragging event
+
     $("body").on("dragstart", ".cell", (event) -> event.preventDefault())
-    # bind to a single click
+
+    $("#clear").click -> $(".cell").html("")
+
+    $("#save").click => @save()
+    $("#load").click => @load()
+
     $("body").on("click", ".cell", (thing) => @color $(thing.currentTarget))
-    # bind to movement
+
     $(document).mousemove (e) =>
       x = e.clientX
       y = e.clientY
       elem = $(document.elementFromPoint(x, y))
       if e.which == 1 and elem.hasClass("cell")
         @color elem
+
+    $("body").on("click", "#colors button", ->
+      document.color = $(this).css("background-color")
+      $("#left_color").css("background-color", document.color)
+    )
   color: (cell, color="", character="") ->
     cell = $(cell)
     text = $("#character").val()
@@ -54,10 +65,10 @@ class window.AsciiMap
     # cell.css("background", document.color)
     cell.text(text).css("color", document.color)
   colorwheel: () ->
-    # https://www.gidforums.com/t-21296.html
-    # https://gist.github.com/MicahElliott/719710
     basic = ["00", "CC", "33", "66", "99", "FF"]
     colors = []
+    # https://www.gidforums.com/t-21296.html
+    # https://gist.github.com/MicahElliott/719710
     i = 0
     while i < 6
       j = 0
@@ -72,10 +83,30 @@ class window.AsciiMap
     for color in colors
       thing = $("<button />", {
       }).css("background", "##{color}").appendTo("#colors")
+  save: () ->
+    map_data = []
+    $(".cell").each ->
+      cell = $(this)
+      text = cell.text()
+      if text != ""
+        map_data.push [cell.data("index"), window.Helper.rgb2hex(cell.css("color")), text]
+    map = localStorage.setItem("map", JSON.stringify(map_data))
+  load: () ->
+    map = JSON.parse(localStorage.getItem("map"))
+    grid_cells = $(".cell")
+    alerted = false
+    for cell in map
+      grid_cell = grid_cells.filter -> $(this).data("index") == cell[0]
+      if grid_cell.length == 0 and not alerted
+        alerted = true
+        alert "It looks like the grid is smaller than the saved map! We'll load it anyway, but you can't see it all"
+  
+      grid_cell.css("color", cell[1])
+      grid_cell.text cell[2]
 
-    $("body").on("click", "#colors button", ->
-      document.color = $(this).css("background-color")
-    )
-      
-
-
+class window.Helper
+  constructor: () ->
+  @rgb2hex: (rgb) ->
+    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
+    hex = (x) -> ("0" + parseInt(x).toString(16)).slice(-2)
+    "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3])
