@@ -2,6 +2,10 @@ A tool for a mud I'm working on that will eventually allow for easy creation of 
 
 demo: http://jsbin.com/cameg/2/
 
+SHORTCUTS:
+ * tab will shink panel, same as clicking up arrow/down arrow
+ * hold shift when clicking a cell and it will work as eye drop button
+
 TODO:
  * bind a color/character to both right and left mouse button
  * s̶a̶v̶e̶ ̶a̶n̶d̶ ̶l̶o̶a̶d̶

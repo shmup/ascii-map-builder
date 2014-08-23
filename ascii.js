@@ -18,28 +18,28 @@
     }
 
     AsciiMap.prototype.grid = function(size) {
-      var counter, p, ratio_height, ratio_width, rh, rw, w;
+      var counter, grid, ratio_height, ratio_width, rh, rw, w;
       if (size == null) {
         size = 15;
       }
       w = $(window);
       ratio_width = 100;
-      ratio_height = 100;
-      p = $("<div />", {
+      ratio_height = 54;
+      grid = $("<div />", {
         "class": "grid",
         width: ratio_width * size,
         height: ratio_height * size
       }).addClass("grid").appendTo("body");
       counter = 0;
       rh = 0;
-      while (rh <= ratio_height) {
+      while (rh < ratio_height) {
         rw = 0;
-        while (rw <= ratio_width) {
+        while (rw < ratio_width) {
           counter++;
           $("<div />", {
             width: size - 1,
             height: size - 1
-          }).addClass("cell").data("index", counter).appendTo(p);
+          }).addClass("cell").data("index", counter).appendTo(grid);
           rw++;
         }
         rh++;
@@ -47,9 +47,26 @@
     };
 
     AsciiMap.prototype.bindings = function() {
+      $(document).keydown((function(_this) {
+        return function(e) {
+          if (e.shiftKey) {
+            document.shifted = true;
+          }
+          if (e.which === 9) {
+            e.preventDefault();
+            $("#shrink").click();
+            return $("#toggle_colors").click();
+          }
+        };
+      })(this));
       $(document).keypress((function(_this) {
         return function(e) {
           return _this.set_character(String.fromCharCode(e.which));
+        };
+      })(this));
+      $(document).keyup((function(_this) {
+        return function(e) {
+          return document.shifted = false;
         };
       })(this));
       $("body").on("dragstart", ".cell", function(event) {
@@ -120,6 +137,9 @@
       }
       if (character == null) {
         character = "";
+      }
+      if (document.shifted) {
+        document.eye_picker = true;
       }
       if (document.eye_picker) {
         document.eye_picker = false;

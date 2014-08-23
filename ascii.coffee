@@ -13,9 +13,9 @@ class window.AsciiMap
     # ratio_height = Math.floor w.height()/size
 
     ratio_width = 100
-    ratio_height = 100
+    ratio_height = 54
 
-    p = $("<div />",{
+    grid = $("<div />",{
       class: "grid"
       width: ratio_width * size
       height: ratio_height * size
@@ -23,20 +23,30 @@ class window.AsciiMap
 
     counter=0
     rh=0
-    while rh <= ratio_height
+    while rh < ratio_height
       rw=0
-      while rw <= ratio_width
+      while rw < ratio_width
         counter++
         $("<div />", {
           width: size-1,
           height: size-1
-        }).addClass("cell").data("index", counter).appendTo(p)
+        }).addClass("cell").data("index", counter).appendTo(grid)
         rw++
       rh++
     return
   bindings: () ->
+    $(document).keydown (e) =>
+      if e.shiftKey
+        document.shifted = true
+      if e.which == 9
+        e.preventDefault()
+        $("#shrink").click()
+        $("#toggle_colors").click()
     $(document).keypress (e) =>
       @set_character (String.fromCharCode(e.which))
+
+    $(document).keyup (e) =>
+      document.shifted = false
 
     $("body").on("dragstart", ".cell", (event) -> event.preventDefault())
 
@@ -87,9 +97,13 @@ class window.AsciiMap
         # shrink.removeClass("left_color")
         # console.log shrink.data("expanded")
   color: (cell, color="", character="") =>
+    if document.shifted
+      document.eye_picker = true
+
     if document.eye_picker
       document.eye_picker = false
       return @eye_picker cell
+
     cell = $(cell)
     text = $("#character").val()
     text = "" if text == " "
