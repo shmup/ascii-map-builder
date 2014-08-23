@@ -23,8 +23,8 @@
         size = 15;
       }
       w = $(window);
-      ratio_width = 10;
-      ratio_height = 10;
+      ratio_width = 100;
+      ratio_height = 100;
       p = $("<div />", {
         "class": "grid",
         width: ratio_width * size,

@@ -12,8 +12,8 @@ class window.AsciiMap
     # ratio_width = Math.floor w.width()/size
     # ratio_height = Math.floor w.height()/size
 
-    ratio_width = 10
-    ratio_height = 10
+    ratio_width = 100
+    ratio_height = 100
 
     p = $("<div />",{
       class: "grid"
