@@ -12,8 +12,8 @@ class window.AsciiMap
     # ratio_width = Math.floor w.width()/size
     # ratio_height = Math.floor w.height()/size
 
-    ratio_width = 100
-    ratio_height = 100
+    ratio_width = 10
+    ratio_height = 10
 
     p = $("<div />",{
       class: "grid"
@@ -35,8 +35,8 @@ class window.AsciiMap
       rh++
     return
   bindings: () ->
-    $(document).keypress (e) ->
-      $("#character").val String.fromCharCode(e.which)
+    $(document).keypress (e) =>
+      @set_character (String.fromCharCode(e.which))
 
     $("body").on("dragstart", ".cell", (event) -> event.preventDefault())
 
@@ -53,6 +53,9 @@ class window.AsciiMap
       elem = $(document.elementFromPoint(x, y))
       if e.which == 1 and elem.hasClass("cell")
         @color elem
+
+    $("#eye").click ->
+      document.eye_picker = true
 
     $("body").on("click", "#colors button", ->
       document.color = $(this).css("background-color")
@@ -80,7 +83,10 @@ class window.AsciiMap
         shrink.removeClass("left_color")
         shrink.text shrink.data("shrink")
         console.log shrink.data("expanded")
-  color: (cell, color="", character="") ->
+  color: (cell, color="", character="") =>
+    if document.eye_picker
+      document.eye_picker = false
+      return @eye_picker cell
     cell = $(cell)
     text = $("#character").val()
     text = "" if text == " "
@@ -125,6 +131,17 @@ class window.AsciiMap
   
       grid_cell.css("color", cell[1])
       grid_cell.text cell[2]
+  set_color: (color) ->
+    document.color = color
+    $(".left_color").css("background-color", color)
+  set_character: (c) ->
+    $("#character").val c
+  eye_picker: (cell) =>
+    cell = $(cell)
+    color = cell.css("color")
+    character = cell.text()
+    @set_color color
+    @set_character character
 
 class window.Helper
   constructor: () ->
