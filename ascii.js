@@ -99,21 +99,16 @@
         shrink = $(this);
         if (shrink.data("expanded")) {
           shrink.data("expanded", false);
+          $("#legend ul li").css("display", "inline");
           $("#legend").css("height", "0");
-          $("#legend").css("padding", "0");
           shrink.text(shrink.data("expand"));
-          shrink.addClass("left_color");
-          $(".can_shrink").hide();
-          return console.log(shrink.data("expanded"));
+          return $("#legend").css("padding", "0");
         } else {
           shrink.data("expanded", true);
+          $("#legend ul li").css("display", "block");
           $("#legend").css("height", "100%");
-          $("#legend").css("padding", "5px");
-          $(".can_shrink").show();
-          shrink.css("background-color", "");
-          shrink.removeClass("left_color");
           shrink.text(shrink.data("shrink"));
-          return console.log(shrink.data("expanded"));
+          return $("#legend").css("padding", "5px");
         }
       });
     };
