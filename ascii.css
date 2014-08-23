@@ -58,7 +58,30 @@ html, body {
   padding: 10px;
 }
 
+#toggle_colors {
+  width: 30px;
+  height: 20px;
+  /* fallback */
+  background-color:#063053;
+  /* chrome 2+, safari 4+; multiple color stops */
+  background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.20, red), color-stop(0.40, green), color-stop(0.6, blue), color-stop(0.8, purple), color-stop(1, orange));
+  /* chrome 10+, safari 5.1+ */
+  background-image:-webkit-linear-gradient(red, green, blue, purple, orange);
+  /* firefox; multiple color stops */
+  background-image:-moz-linear-gradient(top, red, green, blue, purple, orange);
+  /* ie10 */
+  background-image: -ms-linear-gradient(red, green, blue, purple, orange);
+  /* opera 11.1 */
+  background-image: -o-linear-gradient(red, green, blue, purple, orange);
+  /* The "standard" */
+  background-image: linear-gradient(red, green, blue, purple, orange);
+}
+
 #left_color {
+  margin-right: 2px;
+}
+
+.left_color {
   margin-right: 2px;
 }
 

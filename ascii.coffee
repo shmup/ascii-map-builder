@@ -56,8 +56,30 @@ class window.AsciiMap
 
     $("body").on("click", "#colors button", ->
       document.color = $(this).css("background-color")
-      $("#left_color").css("background-color", document.color)
+      $(".left_color").css("background-color", document.color)
     )
+
+    $("#toggle_colors").click -> $("#colors").toggle()
+
+    $("#shrink").click ->
+      shrink = $(this)
+      if shrink.data("expanded")
+        shrink.data("expanded", false)
+        $("#legend").css("height", "0")
+        $("#legend").css("padding", "0")
+        shrink.text shrink.data("expand")
+        shrink.addClass("left_color")
+        $(".can_shrink").hide()
+        console.log shrink.data("expanded")
+      else
+        shrink.data("expanded", true)
+        $("#legend").css("height", "100%")
+        $("#legend").css("padding", "5px")
+        $(".can_shrink").show()
+        shrink.css("background-color", "")
+        shrink.removeClass("left_color")
+        shrink.text shrink.data("shrink")
+        console.log shrink.data("expanded")
   color: (cell, color="", character="") ->
     cell = $(cell)
     text = $("#character").val()

@@ -9,11 +9,14 @@
     <div id="legend">
         <!-- <div id="hamburger"></div> -->
         <ul>
-            <li><input type="text" id="character" value="+" maxlength=1></li>
-            <li><button id="left_color" class="choose_color">L</button><button id="right_color" class="choose_color">R</button></li>
-            <li><button id="clear">clear</button></li>
-            <li><button id="load">load</button></li>
-            <li><button id="save">save</button></li>
+            <li class="can_shrink"><input type="text" id="character" value="+" maxlength=1></li>
+            <li class="can_shrink"><button class="left_color" class="choose_color">L</button><button id="right_color" class="choose_color">R</button></li>
+            <li class="can_shrink"><button id="clear">clear</button></li>
+            <li class="can_shrink"><button id="load">load</button></li>
+            <li class="can_shrink"><button id="save">save</button></li>
+            <li><button id="shrink" data-expanded=true data-expand="»" data-shrink="«">«</button>
+            <button id="toggle_colors"></button>
+            </li>
         </ul>
     </div>
     <div id="colors">

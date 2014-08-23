@@ -78,9 +78,34 @@
           }
         };
       })(this));
-      return $("body").on("click", "#colors button", function() {
+      $("body").on("click", "#colors button", function() {
         document.color = $(this).css("background-color");
-        return $("#left_color").css("background-color", document.color);
+        return $(".left_color").css("background-color", document.color);
+      });
+      $("#toggle_colors").click(function() {
+        return $("#colors").toggle();
+      });
+      return $("#shrink").click(function() {
+        var shrink;
+        shrink = $(this);
+        if (shrink.data("expanded")) {
+          shrink.data("expanded", false);
+          $("#legend").css("height", "0");
+          $("#legend").css("padding", "0");
+          shrink.text(shrink.data("expand"));
+          shrink.addClass("left_color");
+          $(".can_shrink").hide();
+          return console.log(shrink.data("expanded"));
+        } else {
+          shrink.data("expanded", true);
+          $("#legend").css("height", "100%");
+          $("#legend").css("padding", "5px");
+          $(".can_shrink").show();
+          shrink.css("background-color", "");
+          shrink.removeClass("left_color");
+          shrink.text(shrink.data("shrink"));
+          return console.log(shrink.data("expanded"));
+        }
       });
     };
 
