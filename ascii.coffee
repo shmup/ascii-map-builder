@@ -70,6 +70,7 @@ class window.AsciiMap
     $("#brush_down").click => @brush_down()
     $(".change_brush").click => $("#brush_size").text(@brush_size)
     $("#brush_size").click -> $(this).text("1")
+    $("#fill").click => @fill()
 
     $(document).keyup (e) =>
       document.shifted = false
@@ -157,7 +158,7 @@ class window.AsciiMap
     grid_cells = $(".cell")
     alerted = false
     for cell in map
-      grid_cell = grid_cells.filter -> $(this).data("index") == cell[0]
+      grid_cell = $("##{cell[0]}")
       if grid_cell.length == 0 and not alerted
         alerted = true
         alert "It looks like the grid is smaller than the saved map! We'll load it anyway, but you can't see it all"
@@ -169,8 +170,17 @@ class window.AsciiMap
   set_color: (color) ->
     document.color = color
     $(".left_color").css("background-color", color)
+  fill: () =>
+    return if @get_character() == ""
+    cells = $(".cell")
+    cells.each (i,e) =>
+      $(e).val(@get_character())
+      @color $(e)
+
   set_character: (c) ->
     $("#character").val c
+  get_character: () ->
+    $("#character").val()
   eye_picker: (cell) =>
     cell = $(cell)
     color = cell.css("color")

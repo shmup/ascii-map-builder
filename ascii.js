@@ -17,6 +17,7 @@
 
     function AsciiMap() {
       this.eye_picker = __bind(this.eye_picker, this);
+      this.fill = __bind(this.fill, this);
       this.color = __bind(this.color, this);
       this.brush = __bind(this.brush, this);
       this.grid = __bind(this.grid, this);
@@ -116,6 +117,11 @@
       $("#brush_size").click(function() {
         return $(this).text("1");
       });
+      $("#fill").click((function(_this) {
+        return function() {
+          return _this.fill();
+        };
+      })(this));
       $(document).keyup((function(_this) {
         return function(e) {
           return document.shifted = false;
@@ -241,9 +247,7 @@
       _results = [];
       for (_i = 0, _len = map.length; _i < _len; _i++) {
         cell = map[_i];
-        grid_cell = grid_cells.filter(function() {
-          return $(this).data("index") === cell[0];
-        });
+        grid_cell = $("#" + cell[0]);
         if (grid_cell.length === 0 && !alerted) {
           alerted = true;
           alert("It looks like the grid is smaller than the saved map! We'll load it anyway, but you can't see it all");
@@ -269,8 +273,26 @@
       return $(".left_color").css("background-color", color);
     };
 
+    AsciiMap.prototype.fill = function() {
+      var cells;
+      if (this.get_character() === "") {
+        return;
+      }
+      cells = $(".cell");
+      return cells.each((function(_this) {
+        return function(i, e) {
+          $(e).val(_this.get_character());
+          return _this.color($(e));
+        };
+      })(this));
+    };
+
     AsciiMap.prototype.set_character = function(c) {
       return $("#character").val(c);
+    };
+
+    AsciiMap.prototype.get_character = function() {
+      return $("#character").val();
     };
 
     AsciiMap.prototype.eye_picker = function(cell) {
