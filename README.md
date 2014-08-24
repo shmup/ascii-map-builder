@@ -1,6 +1,6 @@
 A tool for a mud I'm working on that will eventually allow for easy creation of ascii maps.
 
-demo: http://jsbin.com/cameg/2/
+demo: http://jsbin.com/cameg/4/
 
 SHORTCUTS:
  * tab will shink panel, same as clicking up arrow/down arrow
