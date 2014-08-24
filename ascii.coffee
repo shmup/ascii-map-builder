@@ -3,8 +3,8 @@ $ ->
   ascii = new window.AsciiMap
 
 class window.AsciiMap
-  width: 17
-  height: 17
+  width: 100
+  height: 50
   brush_size: 1
 
   constructor: () ->

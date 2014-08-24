@@ -9,9 +9,9 @@
   });
 
   window.AsciiMap = (function() {
-    AsciiMap.prototype.width = 17;
+    AsciiMap.prototype.width = 100;
 
-    AsciiMap.prototype.height = 17;
+    AsciiMap.prototype.height = 50;
 
     AsciiMap.prototype.brush_size = 1;
 
